@@ -6,6 +6,14 @@ using System;
 public class TopDownMove : MonoBehaviour
 {
     /*Testing collisions here with animations : this movement behaves as I want, move and slide style. */
+
+    /*
+    
+    STATES          BEHAVIORS
+    DefaultState    SetMoveDirection
+    DashState       DashState
+    
+     */
     
     Dictionary<string,Action> States; 
     public float speed;
