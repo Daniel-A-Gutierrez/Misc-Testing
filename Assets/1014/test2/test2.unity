@@ -605,7 +605,7 @@ MonoBehaviour:
   useHeight: 1
   jumpVelocity: 0
   jumpCooldown: 0.1
-  airControl: 0.75
+  airControl: 0.2
   fallSpeedCap: 20
   maxAirSpeed: 5
   fallSpeed:

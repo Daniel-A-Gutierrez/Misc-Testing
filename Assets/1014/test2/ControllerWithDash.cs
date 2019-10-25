@@ -71,6 +71,7 @@ public class ControllerWithDash : MonoBehaviour
     {
         if(moveVec!=Vector2.zero)
             rb.MovePosition(rb.position + moveVec);
+            
     }
 
     void Update()
@@ -238,15 +239,12 @@ public class ControllerWithDash : MonoBehaviour
         print("0");
         float apply = ((Input.GetKey(KeyCode.A) ? -1 : 0) +
             (Input.GetKey(KeyCode.D) ? 1 : 0))*walkSpeed*Time.fixedDeltaTime*airControl;
-        if(Mathf.Abs(moveVec.x) < Mathf.Abs(maxAirSpeed * Time.fixedDeltaTime))
-            {moveVec.x += apply; print("1");}
-        else if(moveVec.x >= maxAirSpeed*Time.fixedDeltaTime) //allow decelleration but not accelleration above max. 
-            {moveVec.x += apply; print("2");}
-        else if(moveVec.x <= -maxAirSpeed*Time.fixedDeltaTime)
-            {moveVec.x += apply; print("3");}
-        else
-            print("4");
-
+        if(  FloatComp( Mathf.Abs(moveVec.x) , Mathf.Abs(maxAirSpeed * Time.fixedDeltaTime)  ) < 0)
+            {moveVec.x += apply;}
+        else if( FloatComp(  moveVec.x , maxAirSpeed*Time.fixedDeltaTime) >= 0  && apply < 0) //allow decelleration but not accelleration above max. 
+            {moveVec.x += apply; }
+        else if( FloatComp ( moveVec.x , -maxAirSpeed*Time.fixedDeltaTime) <= 0 && apply > 0)
+            {moveVec.x += apply;}
     }
 
     //moveVec
@@ -305,6 +303,23 @@ public class ControllerWithDash : MonoBehaviour
         currentGravity = gravityScale;
     }
 
+    float FloatComp(float a, float b, float tolerance = .000001f)
+    {
+        if(float.IsNaN(a) || float.IsNaN(b))
+            return float.NaN;
+        else if(float.IsInfinity(a) && float.IsInfinity(b))
+            return float.PositiveInfinity;
+        else if( Mathf.Abs(Mathf.Abs(a) - Mathf.Abs(b)) < tolerance)
+            return 0f;
+        else if( a - b > tolerance)
+            return 1f;
+        else if (b-a > tolerance)
+            return -1f;
+        else
+            return float.NaN;
+
+    }
+
 
     void OnDrawGizmosSelected()
     {
@@ -314,5 +329,5 @@ public class ControllerWithDash : MonoBehaviour
         Gizmos.DrawWireCube(transform.position + Vector3.up*RoofCheckOffset , RoofCheckBounds);
     }
 
-
 }
+
