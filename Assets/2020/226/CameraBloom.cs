@@ -10,10 +10,11 @@ public class CameraBloom : MonoBehaviour
     public float threshhold;
     RenderTexture Input;
     public RenderTexture Result;
-    public Material mat;
+    //public Material mat;
     Camera cam;
     int srcWidth;
     int srcHeight;
+    int kernel;
 
     // Start is called before the first frame update
     void Start()
@@ -21,29 +22,28 @@ public class CameraBloom : MonoBehaviour
         cam = GetComponent<Camera>();
         srcWidth = cam.pixelWidth;
         srcHeight = cam.pixelHeight;
+        kernel = blur.FindKernel("CSMain");
 
         blur.SetFloat("radius",1.0f);
         Result = new RenderTexture((int)(cam.pixelWidth*screenScaling),
             (int)(cam.pixelHeight*screenScaling),1,RenderTextureFormat.ARGBFloat);
         Result.enableRandomWrite = true;
-        blur.SetTexture(0,"Result",Result);
-
+        blur.SetTexture(kernel,"Result",Result);
+        cam.targetTexture = null;
         
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-        blur.Dispatch(0,Result.width/8,Result.height/8,1);
-        mat.SetTexture("Texture", Result);
-        
     }
     [ImageEffectOpaque]
     void OnRenderImage(RenderTexture source, RenderTexture dest)
     {
-        blur.SetTexture(0,"Input",source);
-        Graphics.Blit(source,dest,mat);
+        blur.SetTexture(kernel,"Input",source);
+        blur.SetFloat("time", Time.time);
+        blur.Dispatch(0,Result.width/8,Result.height/8,1);
+        Graphics.Blit(Result,dest);
     }
 }
 

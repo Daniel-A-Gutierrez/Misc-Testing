@@ -5,7 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/2020/11/mandlebrot set.unity
     guid: c5b2abd68ce978942a68d71091b18d77
+  - enabled: 1
+    path: Assets/2020/110/Scenes/aggressively minimal sample.unity
+    guid: e5f6a6046e47bf74a9d814d9153d76fe
   m_configObjects: {}
