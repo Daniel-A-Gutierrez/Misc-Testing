@@ -3,16 +3,33 @@
 
 // Create a RenderTexture with enableRandomWrite flag and set it
 // with cs.SetTexture
-RWTexture2D<float4> Input;
+Texture2D<float4> _Input;
 RWTexture2D<float4> Result;
 float radius;
 float threshhold;
 float time;
+int width;
+int height;
+
+SamplerState sampler_Input
+{
+    Filter = MIN_MAG_MIP_POINT;
+    AddressU = Wrap;
+    AddressV = Wrap;
+};
 
 [numthreads(8,8,1)]
 void CSMain (uint3 id : SV_DispatchThreadID)
 {
-    // TODO: insert actual code here!
-    //subtract input by amount 
-    Result[id.xy] = float4(sin(time),cos(time),1.,1.);
+    // TODO: insert actual code here !
+    // subtract input by amount float4(  float(id.x) / width, float(id.y)/height, 0, 1);//
+    float4 avg = float4(0, 0, 0, 0);
+    for (int i = 0; i < radius; i++)
+    {
+        for (int q = 0; q < radius; q++)
+        {
+            avg += _Input.SampleLevel(sampler_Input, float2(id.xy)/ float2(width, height), 0)   ;
+        }
+    }
+    Result[id.xy] = lerp( lerp(Result[id.xy],0,.3) , avg - float4(radius * radius * threshhold, radius * radius * threshhold, radius * radius * threshhold, radius * radius * threshhold), .3f);
 }

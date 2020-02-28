@@ -28,21 +28,25 @@ public class CameraBloom : MonoBehaviour
         Result = new RenderTexture((int)(cam.pixelWidth*screenScaling),
             (int)(cam.pixelHeight*screenScaling),1,RenderTextureFormat.ARGBFloat);
         Result.enableRandomWrite = true;
+        Result.Create(); //THIS WAS WHAT FIXED IT.
         blur.SetTexture(kernel,"Result",Result);
         cam.targetTexture = null;
+        blur.SetInt("width", srcWidth);
+        blur.SetInt("height", srcHeight);
+        blur.SetFloat("radius", 4);
+        blur.SetFloat("threshhold", 1.1f);
         
     }
 
     // Update is called once per frame
     void Update()
     {
+        blur.SetFloat("time", Time.time);
     }
-    [ImageEffectOpaque]
     void OnRenderImage(RenderTexture source, RenderTexture dest)
     {
-        blur.SetTexture(kernel,"Input",source);
-        blur.SetFloat("time", Time.time);
-        blur.Dispatch(0,Result.width/8,Result.height/8,1);
+        blur.SetTexture(kernel,"_Input",source);
+        blur.Dispatch(kernel,Result.width/8,Result.height/8,1);
         Graphics.Blit(Result,dest);
     }
 }
