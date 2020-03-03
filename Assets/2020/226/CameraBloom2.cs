@@ -24,10 +24,14 @@ public class CameraBloom2 : MonoBehaviour
 
     void OnRenderImage(RenderTexture src, RenderTexture dst)
     {
-        blurFilter.SetInt("Input Width",src.width>>downscale );
-        blurFilter.SetInt("Input Height",src.width>>downscale );
-        RenderTexture temp = RenderTexture.GetTemporary(src.width>>downscale, src.height>>downscale);
-        RenderTexture temp2 = RenderTexture.GetTemporary(src.width>>downscale, src.height>>downscale);
+        blurFilter.SetInt("_Width",src.width>>downscale );
+        blurFilter.SetInt("_Height",src.width>>downscale );
+        RenderTexture temp = RenderTexture.GetTemporary(src.width>>downscale, src.height>>downscale , 0, RenderTextureFormat.ARGBFloat);
+        RenderTexture temp2 = RenderTexture.GetTemporary(src.width>>downscale, src.height>>downscale, 0 , RenderTextureFormat.ARGBFloat);
+        temp.filterMode = FilterMode.Bilinear;
+        temp.filterMode = FilterMode.Bilinear;
+        
+
         Graphics.Blit(src,temp);
         for(int i = 0 ; i < iterations ; i++)
         {

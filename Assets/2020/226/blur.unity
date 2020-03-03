@@ -482,8 +482,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eb3369ccfc78b545a8b4474d9986cf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  iterations: 2
-  downscale: 1
+  iterations: 0
+  downscale: 0
   blurShader: {fileID: 4800000, guid: d01d1f2058f0c4e4093da01df6a2df23, type: 3}
 --- !u!1 &1745923823
 GameObject:

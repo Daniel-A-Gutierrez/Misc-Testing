@@ -45,14 +45,19 @@
 
             fixed4 frag (v2f i) : SV_Target
             {
-                float2 pixSize = 1/float2(_Width,_Height);
-                fixed4 col =tex2D(_MainTex, i.uv + float2(pixSize.x,0) ) +
+                float2 pixSize = 1.0/float2(_Width,_Height);
+                float4 col =tex2D(_MainTex, i.uv + float2(pixSize.x,0) ) +
                             tex2D(_MainTex, i.uv + float2(-pixSize.x,0) ) +
                             tex2D(_MainTex, i.uv + float2(0,pixSize.y) ) +
                             tex2D(_MainTex, i.uv + float2(0,-pixSize.y) );
-                return col;
+                //fixed4 col = tex2D(_MainTex, i.uv + float2(pixSize.x,0) );
+                return col /4.0;
             }
             ENDCG
         }
     }
 }
+
+
+
+//gaussian blur
