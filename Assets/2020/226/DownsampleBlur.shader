@@ -7,8 +7,6 @@
         _Height ("Input Height" , int) = 0
         sigma ("Sigma", float ) = 1.0
         blurSize ("Blur Size", float) = 1.0
-        blurX("Blur X (0 or 1)" , float) = 0.0
-        blurY("Blur Y (0 or 1)" , float) = 0.0
         blurSamples("Blur samples" , float) = 1.0
     }
     SubShader
@@ -76,8 +74,6 @@
             int _Height;
             float sigma;
             float blurSize;
-            float blurX;
-            float blurY;
             float blurSamples;
             //const float pi =  3.14159265 ;// apparently this is illegal! Pi was not set in all fragments.
 

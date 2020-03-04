@@ -4,12 +4,11 @@
 // Create a RenderTexture with enableRandomWrite flag and set it
 // with cs.SetTexture
 Texture2D<float4> _Input;
+Texture2D<float4> _Light;
 RWTexture2D<float4> Result;
-float radius;
-float threshhold;
-float time;
 int width;
 int height;
+float intensity;
 
 SamplerState sampler_Input
 {
@@ -18,28 +17,16 @@ SamplerState sampler_Input
     AddressV = Wrap;
 };
 
-float4 BoxSample4(uint2 id)
+SamplerState sampler_Light
 {
-return (_Input.SampleLevel(sampler_Input, float2(id+uint2(1,0)) / float2(width, height),0) + 
-        _Input.SampleLevel(sampler_Input, float2(id+uint2(0,1)) / float2(width, height),0) +
-        _Input.SampleLevel(sampler_Input, float2(id+uint2(-1,0))/ float2(width, height),0) +
-        _Input.SampleLevel(sampler_Input, float2(id+uint2(0,-1))/ float2(width, height),0) )/4;
-}
+    Filter = MIN_MAG_MIP_LINEAR;
+    AddressU = Wrap;
+    AddressV = Wrap;
+};
 
+//literally just combines 2 textures into 1 as a tint.
 [numthreads(8,8,1)]
 void CSMain (uint3 id : SV_DispatchThreadID)
 {
-    // TODO: insert actual code here !
-    // subtract input by amount float4(  float(id.x) / width, float(id.y)/height, 0, 1);//
-    // float4 avg = float4(0, 0, 0, 0);
-    // for (int i = 0; i < radius; i++)
-    // {
-    //     for (int q = 0; q < radius; q++)
-    //     {
-    //         avg += _Input.SampleLevel(sampler_Input, float2(id.xy)/ float2(width, height), 0)   ;
-    //     }
-    // }
-
-    //Result[id.xy] = lerp( lerp(Result[id.xy],0,.3) , avg - float4(radius * radius * threshhold, radius * radius * threshhold, radius * radius * threshhold, radius * radius * threshhold), .3f);
-    Result[id.xy] =  max(BoxSample4(id.xy) -1.0 , 0 ); 
+    Result[id.xy] =  _Input.SampleLevel(sampler_Input, float2(id.xy) / float2(width, height),0) + intensity * _Light.SampleLevel(sampler_Light, float2(id.xy) / float2(width, height),0);
 }

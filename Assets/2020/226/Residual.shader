@@ -1,8 +1,9 @@
-﻿Shader "Unlit/renderShader"
+﻿Shader "Unlit/Residual"
 {
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+        _Threshhold ("Threshhold"  , float) = 1.0
     }
     SubShader
     {
@@ -40,11 +41,10 @@
                 return o;
             }
 
-            fixed4 frag (v2f i) : SV_Target
+            float4 frag (v2f i) : SV_Target
             {
                 // sample the texture
-                fixed4 col = tex2D(_MainTex, i.uv);
-                // apply fog
+                float4 col = max(0.0, tex2D(_MainTex, i.uv) - 1.0); //dont get caught up rn, but later try to take the original color just if its bright enough.
                 return col;
             }
             ENDCG

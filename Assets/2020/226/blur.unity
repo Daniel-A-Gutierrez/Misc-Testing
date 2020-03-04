@@ -208,8 +208,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 755013001}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.47, y: 2.07, z: 2.49}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -2.81, y: 2.07, z: -5}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -320,7 +320,6 @@ GameObject:
   - component: {fileID: 1565460445}
   - component: {fileID: 1565460448}
   - component: {fileID: 1565460449}
-  - component: {fileID: 1565460450}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -362,7 +361,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
+  orthographic: 1
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
@@ -400,16 +399,23 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1565460444}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bf690932884f09849ad55965e8307f35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blur: {fileID: 7200000, guid: 8c3b0ab3d04ed374c9d9768e6d7b31d1, type: 3}
-  screenScaling: 1
-  radius: 1
+  residual: {fileID: 4800000, guid: ee1306786349cf343872af0fc477c010, type: 3}
+  additive: {fileID: 4800000, guid: 2f76c8020a5248b42bcdb15c751e2381, type: 3}
+  blurShader: {fileID: 4800000, guid: d01d1f2058f0c4e4093da01df6a2df23, type: 3}
   threshhold: 1
+  intensity: 1
+  downscale: 1
+  iterations: 5
+  sigma: 2
+  blurSize: 0.5
+  blurSamples: 17
   Result: {fileID: 0}
+  Light: {fileID: 0}
 --- !u!114 &1565460449
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -470,21 +476,6 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
---- !u!114 &1565460450
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1565460444}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5eb3369ccfc78b545a8b4474d9986cf0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  iterations: 5
-  downscale: 2
-  blurShader: {fileID: 4800000, guid: d01d1f2058f0c4e4093da01df6a2df23, type: 3}
 --- !u!1 &1745923823
 GameObject:
   m_ObjectHideFlags: 0
