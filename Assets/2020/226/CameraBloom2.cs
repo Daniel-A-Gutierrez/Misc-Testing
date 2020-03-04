@@ -26,11 +26,11 @@ public class CameraBloom2 : MonoBehaviour
     {
         blurFilter.SetInt("_Width",src.width>>downscale );
         blurFilter.SetInt("_Height",src.width>>downscale );
-        blurFilter.SetFloat("sigma", 7.0f);
+        blurFilter.SetFloat("sigma", 2.0f);
         blurFilter.SetFloat("blurSize", 2.0f);
         blurFilter.SetFloat("blurY", 0.0f);
         blurFilter.SetFloat("blurX", 1.0f);
-        blurFilter.SetFloat("blurSamples", 15.0f);
+        blurFilter.SetFloat("blurSamples", 17.0f);
 
         RenderTexture temp = RenderTexture.GetTemporary(src.width>>downscale, src.height>>downscale , 0, RenderTextureFormat.ARGBFloat);
         RenderTexture temp2 = RenderTexture.GetTemporary(src.width>>downscale, src.height>>downscale, 0 , RenderTextureFormat.ARGBFloat);

@@ -90,11 +90,17 @@
                 return o;
             }
 
+            float rand(float2 co)
+            {
+                return frac(sin( dot(co ,float2(12.9898,78.233) )) * 43758.5453);
+            }
+
             fixed4 frag (v2f input) : SV_Target
             {
                 float2 pixSize = 1.0/float2(_Width,_Height);
-                
-                float2 blurMultiplyVec = float2 (blurX,blurY);
+                float angle = rand(input.uv*_Time.x)*pi/blurSamples; //random number to at most have us go around the full circle twice, on average once. 
+                float2 blurMultiplyVec = float2 (cos(angle),sin(angle));
+                float2 blurMultiplyVec2 = float2 (cos(angle + pi/2), sin(angle + pi/2));
                 
                 // Incremental Gaussian Coefficent Calculation (See GPU Gems 3 pp. 877 - 889)
                 float3 incrementalGaussian;
@@ -110,13 +116,19 @@
                 incrementalGaussian.xy *= incrementalGaussian.yz;
 
                 // Go through the remaining 8 vertical samples (4 on each side of the center)
-                for (float i = 1.0; i <= (blurSamples-1)/2; i++) 
+                for (float i = 1.0; i <= (blurSamples-1)/4; i++) 
                 { 
                     avgValue += tex2D(_MainTex, input.uv - pixSize * i * blurSize * 
-                                        blurMultiplyVec) * incrementalGaussian.x;         
+                                        blurMultiplyVec) * incrementalGaussian.x;
                     avgValue += tex2D(_MainTex, input.uv + pixSize * i * blurSize * 
-                                        blurMultiplyVec) * incrementalGaussian.x;         
-                    coefficientSum += 2.0 * incrementalGaussian.x;
+                                        blurMultiplyVec) * incrementalGaussian.x;
+                    avgValue += tex2D(_MainTex, input.uv + pixSize * i * blurSize * 
+                                        blurMultiplyVec2) * incrementalGaussian.x; 
+                    avgValue += tex2D(_MainTex, input.uv - pixSize * i * blurSize * 
+                                        blurMultiplyVec2) * incrementalGaussian.x;          
+                    blurMultiplyVec = float2(cos(i*angle),sin(i*angle));
+                    blurMultiplyVec = float2(cos(i*angle + i*pi/2),sin(i*angle + i*pi/2));
+                    coefficientSum += 4.0*incrementalGaussian.x;
                     incrementalGaussian.xy *= incrementalGaussian.yz;
                 }
 
