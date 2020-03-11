@@ -5,6 +5,7 @@
         _MainTex ("Texture", 2D) = "white" {}
         _Light ("Texture", 2D) = "white" {}
         _Intensity("Intensity" , float) = 1.0
+        _FlipX("Flip X", int) = 0
     }
     SubShader
     {
@@ -35,12 +36,17 @@
             float4 _MainTex_ST;
             sampler2D _Light;
             float _Intensity;
+            int _FlipX;
 
             v2f vert (appdata v)
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+                if (_FlipX==1)
+                {
+                    o.uv.x = 1 - o.uv.x;
+                }
                 return o;
             }
 

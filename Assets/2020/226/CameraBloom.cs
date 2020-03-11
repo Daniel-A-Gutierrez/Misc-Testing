@@ -9,6 +9,8 @@ public class CameraBloom : MonoBehaviour
     public Shader blurShader;
     public float threshhold;
     public float intensity;
+    [Range(0,1)]
+    public int FlipX;
 
     //gaussian blur stuff
     public int downscale = 3;
@@ -92,6 +94,8 @@ public class CameraBloom : MonoBehaviour
         additiveFilter.SetFloat("_Intensity", intensity);
 
         residualFilter.SetFloat("_Threshhold", threshhold);
+
+        additiveFilter.SetInt("_FlipX", FlipX);
     }
     void OnRenderImage(RenderTexture source, RenderTexture dest)
     {
