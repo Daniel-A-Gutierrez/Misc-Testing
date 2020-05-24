@@ -4,6 +4,7 @@
     {
         _MainTex ("Texture", 2D) = "white" {}
         _Threshhold ("Threshhold"  , float) = 1.0
+        _TrailTex("Texture", 2D) = "white" {}
     }
     SubShader
     {
@@ -32,6 +33,7 @@
 
             sampler2D _MainTex;
             float4 _MainTex_ST;
+            sampler2D _TrailTex;
 
             v2f vert (appdata v)
             {

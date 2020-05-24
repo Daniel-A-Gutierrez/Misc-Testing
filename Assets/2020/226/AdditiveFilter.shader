@@ -5,7 +5,7 @@
         _MainTex ("Texture", 2D) = "white" {}
         _Light ("Texture", 2D) = "white" {}
         _Intensity("Intensity" , float) = 1.0
-        _FlipX("Flip X", int) = 0
+        _FlipX("FlipX", int) = 0
     }
     SubShader
     {
@@ -54,6 +54,8 @@
             {
                 // sample the texture
                 float4 col = tex2D(_MainTex, i.uv) + _Intensity*tex2D(_Light,i.uv);
+                if (_FlipX == 1)
+                    col = 1.0 - col;
                 return col;
             }
             ENDCG

@@ -320,6 +320,7 @@ GameObject:
   - component: {fileID: 1565460445}
   - component: {fileID: 1565460448}
   - component: {fileID: 1565460449}
+  - component: {fileID: 1565460450}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -409,6 +410,7 @@ MonoBehaviour:
   blurShader: {fileID: 4800000, guid: d01d1f2058f0c4e4093da01df6a2df23, type: 3}
   threshhold: 1
   intensity: 1
+  FlipX: 0
   downscale: 1
   iterations: 5
   sigma: 2
@@ -476,6 +478,25 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
+--- !u!95 &1565460450
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1565460444}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5b023da2a361d7c4ba522f611040e456, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1745923823
 GameObject:
   m_ObjectHideFlags: 0
