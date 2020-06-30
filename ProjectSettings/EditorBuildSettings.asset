@@ -11,7 +11,13 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/2020/110/Scenes/aggressively minimal sample.unity
     guid: e5f6a6046e47bf74a9d814d9153d76fe
-  - enabled: 1
-    path: Assets/2020/5 20/mirror scene.unity
+  - enabled: 0
+    path: Assets/2020/520/mirror scene.unity
     guid: a91e85c941225c449b0046771f6bb8cc
+  - enabled: 0
+    path: Assets/2020/529/Multiplayer TDF/scene0.unity
+    guid: 8afe13915a8381549a5a9b02ca93f235
+  - enabled: 1
+    path: Assets/2020/529/SimpleTests.unity
+    guid: 2cefdc6fefae5db4e8dfb4227bc689f5
   m_configObjects: {}
