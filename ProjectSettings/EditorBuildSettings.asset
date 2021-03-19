@@ -17,7 +17,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/2020/529/Multiplayer TDF/scene0.unity
     guid: 8afe13915a8381549a5a9b02ca93f235
-  - enabled: 1
+  - enabled: 0
     path: Assets/2020/529/SimpleTests.unity
     guid: 2cefdc6fefae5db4e8dfb4227bc689f5
+  - enabled: 1
+    path: Assets/2020/89/quicknettest.unity
+    guid: b833cdf8300078f4287da7ce93115771
   m_configObjects: {}

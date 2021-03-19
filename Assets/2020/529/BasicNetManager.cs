@@ -45,7 +45,7 @@ public class BasicNetManager : NetworkManager
     {
         //ClientScene.AddPlayer//called from client to make server call onserveraddplayer
         GameObject playerGameObject = Instantiate(playerPrefab, spawnLocations.transform.GetChild(players).transform.position, playerPrefab.transform.rotation);
-        playerGameObject.GetComponent<NetBase>().playerNumber = players;
+        //playerGameObject.GetComponent<NetBase>().playerNumber = players;////////////
         Color c; switch (players)
         {
             case 0: c = Color.red; break;
@@ -55,7 +55,7 @@ public class BasicNetManager : NetworkManager
             default: c = Color.black; break;
         }
         NetworkServer.AddPlayerForConnection(nc, playerGameObject);
-        playerGameObject.GetComponent<NetColorer>().ChangeColor(c);
+        //playerGameObject.GetComponent<NetColorer>().ChangeColor(c);///////////
         //playerGameObject.GetComponent<NetBase>().RpcRecolor(c);
         players++;players = players % 4;
     }
