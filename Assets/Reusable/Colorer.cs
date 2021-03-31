@@ -6,7 +6,7 @@ using UnityEditor;
 [ExecuteInEditMode]
 public class Colorer : MonoBehaviour
 {
-
+    [ColorUsage(true, true)]
     public Color color;
     Color currentColor;
 
